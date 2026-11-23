@@ -1,0 +1,38 @@
+
+[
+  {
+    "browser": "Chrome",
+    "type": "History",
+    "title": "University Portal",
+    "url": "https://portal.example.com/login",
+    "timestamp": "2026-10-12T08:00:00Z"
+  },
+  {
+    "browser": "Edge",
+    "type": "History",
+    "title": "GitHub Repositories",
+    "url": "https://github.com/",
+    "timestamp": "2026-10-12T08:15:00Z"
+  },
+  {
+    "browser": "Firefox",
+    "type": "Bookmark",
+    "title": "Digital Forensics Guide",
+    "url": "https://example.net/forensics",
+    "timestamp": "2026-10-12T08:30:00Z"
+  },
+  {
+    "browser": "Chrome",
+    "type": "Download",
+    "title": "Cybersecurity Notes",
+    "url": "file:///Downloads/cybersecurity-notes.pdf",
+    "timestamp": "2026-10-12T08:45:00Z"
+  },
+  {
+    "browser": "Edge",
+    "type": "Search",
+    "title": "Network Security Tutorial",
+    "url": "https://www.bing.com/search?q=network+security",
+    "timestamp": "2026-10-12T09:00:00Z"
+  }
+]

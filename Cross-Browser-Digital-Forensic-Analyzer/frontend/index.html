@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cross-Browser Forensic Analyzer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-icon">⌕</div>
+      <div><strong>TraceLens</strong><span>Digital Forensics</span></div>
+    </div>
+    <div class="side-label">WORKSPACE</div>
+    <button class="nav-item active" data-view="dashboard"><span>▦</span> Dashboard</button>
+    <button class="nav-item" data-view="artifacts"><span>▤</span> Artifacts</button>
+    <button class="nav-item" data-view="timeline"><span>◷</span> Unified Timeline</button>
+    <button class="nav-item" data-view="reports"><span>▧</span> Reports</button>
+    <div class="sidebar-bottom">
+      <div class="safe-note"><span class="status-dot"></span><div><b>Local analysis mode</b><small>Demo data stays in this browser</small></div></div>
+      <div class="user-row"><div class="avatar">DF</div><div><b>Forensic Analyst</b><small>Investigation workspace</small></div></div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="mobile-brand">TraceLens <span>Forensics</span></div>
+      <div class="breadcrumb">Workspace <span>/</span> <b id="pageName">Dashboard</b></div>
+      <div class="top-actions"><span class="live-pill"><i></i> Offline demo</span><button class="button button-outline" id="exportTop">Export report ↓</button></div>
+    </header>
+
+    <section class="page-heading">
+      <div><p class="eyebrow">INVESTIGATION WORKSPACE</p><h1 id="heading">Cross-Browser Artifact Overview</h1>
+      <p class="subheading">Collect, normalize, and correlate browser artifacts in one place.</p></div>
+      <button class="button button-primary" id="newCaseBtn">＋ New analysis</button>
+    </section>
+
+    <section class="notice"><span class="notice-icon">i</span><div><b>Frontend prototype</b><p>This interface uses sample records only. It does not access browser profile files or perform forensic extraction.</p></div><button class="notice-close" id="closeNotice" aria-label="Dismiss notice">×</button></section>
+
+    <section id="dashboardView">
+      <div class="stats-grid">
+        <article class="stat-card"><div class="stat-top"><span>Total artifacts</span><span class="stat-icon purple">▤</span></div><strong id="statTotal">12</strong><small><span class="trend">●</span> Across 3 browser sources</small></article>
+        <article class="stat-card"><div class="stat-top"><span>Browser sources</span><span class="stat-icon blue">◉</span></div><strong>3</strong><small>Chrome, Edge, Firefox</small></article>
+        <article class="stat-card"><div class="stat-top"><span>Correlated events</span><span class="stat-icon green">⌁</span></div><strong id="statCorrelated">4</strong><small>Grouped by time and URL</small></article>
+        <article class="stat-card"><div class="stat-top"><span>Evidence status</span><span class="stat-icon amber">✓</span></div><strong>Demo</strong><small>Sample dataset loaded</small></article>
+      </div>
+
+      <div class="content-grid">
+        <section class="panel upload-panel">
+          <div class="panel-heading"><div><h2>Import artifact data</h2><p>Load a JSON or CSV export for the interface demo.</p></div><span class="mini-icon">⇧</span></div>
+          <label class="drop-zone" for="fileInput" id="dropZone">
+            <div class="upload-symbol">↑</div><b>Drop a file here or <u>browse files</u></b>
+            <span>JSON or CSV · Use sanitized/exported data</span>
+          </label>
+          <input type="file" id="fileInput" accept=".json,.csv,application/json,text/csv" hidden>
+          <div class="upload-foot"><span>✓ No server upload</span><span>⌁ Local browser preview</span></div>
+          <p class="small-help" id="importStatus">Expected fields: browser, type, url, timestamp, title.</p>
+        </section>
+
+        <section class="panel source-panel">
+          <div class="panel-heading"><div><h2>Browser sources</h2><p>Sources represented in the current dataset</p></div><button class="text-button" data-go="artifacts">View all →</button></div>
+          <div class="source-row"><div class="browser-logo chrome">C</div><div class="source-info"><b>Google Chrome</b><small>Chromium-based browser</small></div><strong id="chromeCount">4</strong></div>
+          <div class="source-row"><div class="browser-logo edge">e</div><div class="source-info"><b>Microsoft Edge</b><small>Chromium-based browser</small></div><strong id="edgeCount">4</strong></div>
+          <div class="source-row"><div class="browser-logo firefox">F</div><div class="source-info"><b>Mozilla Firefox</b><small>Gecko-based browser</small></div><strong id="firefoxCount">4</strong></div>
+          <div class="source-foot"><span class="status-dot"></span> Source counts update when data is imported</div>
+        </section>
+      </div>
+
+      <section class="panel recent-panel">
+        <div class="panel-heading"><div><h2>Recent artifacts</h2><p>Sample browser activity, sorted newest first</p></div><button class="text-button" data-go="timeline">Open timeline →</button></div>
+        <div class="table-wrap"><table><thead><tr><th>ARTIFACT</th><th>BROWSER</th><th>TYPE</th><th>TIMESTAMP</th><th>STATUS</th></tr></thead><tbody id="recentRows"></tbody></table></div>
+      </section>
+    </section>
+
+    <section id="artifactsView" class="hidden">
+      <section class="panel">
+        <div class="panel-heading"><div><h2>Artifact explorer</h2><p>Search and filter normalized browser records.</p></div><button class="button button-outline" id="exportCsv">Export CSV ↓</button></div>
+        <div class="filters"><input id="searchInput" type="search" placeholder="Search URL, title, browser…"><select id="browserFilter"><option value="all">All browsers</option><option>Chrome</option><option>Edge</option><option>Firefox</option></select><select id="typeFilter"><option value="all">All types</option><option>History</option><option>Download</option><option>Search</option><option>Bookmark</option></select></div>
+        <div class="table-wrap"><table><thead><tr><th>ARTIFACT / TITLE</th><th>BROWSER</th><th>TYPE</th><th>URL</th><th>TIMESTAMP</th></tr></thead><tbody id="artifactRows"></tbody></table></div>
+        <div class="table-bottom"><span id="resultCount">12 records</span><button class="text-button" id="resetFilters">Reset filters</button></div>
+      </section>
+    </section>
+
+    <section id="timelineView" class="hidden">
+      <section class="panel">
+        <div class="panel-heading"><div><h2>Unified forensic timeline</h2><p>Events from different browsers arranged chronologically.</p></div><span class="timeline-tag">Oldest → newest</span></div>
+        <div class="timeline-list" id="timelineList"></div>
+      </section>
+    </section>
+
+    <section id="reportsView" class="hidden">
+      <section class="panel report-panel"><div class="report-mark">▧</div><h2>Investigation report</h2><p>Generate a local summary of the currently loaded dataset. The report includes artifact counts, source counts, and a chronological event list.</p><div class="report-summary" id="reportSummary"></div><button class="button button-primary" id="generateReport">Generate and download report</button><p class="small-help">This is a demonstration report, not a validated forensic evidence report.</p></section>
+    </section>
+
+    <footer>TraceLens UI Prototype <span>•</span> Cross-Browser Digital Forensic Artifact Analyzer</footer>
+  </main>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="script.js"></script>
+</body>
+</html>

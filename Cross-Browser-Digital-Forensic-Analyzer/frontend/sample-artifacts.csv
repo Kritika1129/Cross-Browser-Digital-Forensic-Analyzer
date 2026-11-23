@@ -1,0 +1,7 @@
+
+browser,type,title,url,timestamp
+Chrome,History,University Portal,https://portal.example.com/login,2026-10-12T08:00:00Z
+Edge,History,GitHub Repositories,https://github.com/,2026-10-12T08:15:00Z
+Firefox,Bookmark,Digital Forensics Guide,https://example.net/forensics,2026-10-12T08:30:00Z
+Chrome,Download,Cybersecurity Notes,file:///Downloads/cybersecurity-notes.pdf,2026-10-12T08:45:00Z
+Edge,Search,Network Security Tutorial,https://www.bing.com/search?q=network+security,2026-10-12T09:00:00Z
